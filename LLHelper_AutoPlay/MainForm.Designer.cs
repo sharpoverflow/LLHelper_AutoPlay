@@ -35,7 +35,7 @@
             this.text_Log = new System.Windows.Forms.TextBox();
             this.lab_State_NetCatch = new System.Windows.Forms.Label();
             this.text_Setting = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lab_State_Running = new System.Windows.Forms.Label();
             this.btn_Setting = new System.Windows.Forms.Button();
             this.btn_About = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -115,16 +115,16 @@
             this.text_Setting.TabIndex = 5;
             this.text_Setting.Text = "dfgds\r\nsdfg\r\nsdfg\r\nsdfg\r\nsdfg\r\nsdfg\r\nsdfg\r\nwr";
             // 
-            // label1
+            // lab_State_Running
             // 
-            this.label1.Font = new System.Drawing.Font("黑体", 32F, System.Drawing.FontStyle.Bold);
-            this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(12, 88);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(246, 64);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "未运行";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lab_State_Running.Font = new System.Drawing.Font("黑体", 32F, System.Drawing.FontStyle.Bold);
+            this.lab_State_Running.ForeColor = System.Drawing.Color.Red;
+            this.lab_State_Running.Location = new System.Drawing.Point(12, 88);
+            this.lab_State_Running.Name = "lab_State_Running";
+            this.lab_State_Running.Size = new System.Drawing.Size(246, 64);
+            this.lab_State_Running.TabIndex = 1;
+            this.lab_State_Running.Text = "未运行";
+            this.lab_State_Running.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btn_Setting
             // 
@@ -157,7 +157,7 @@
             this.Controls.Add(this.text_Log);
             this.Controls.Add(this.btn_ShowHttpLog);
             this.Controls.Add(this.btn_NetCatch);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lab_State_Running);
             this.Controls.Add(this.lab_State_NetCatch);
             this.Controls.Add(this.lab_State_HookListen);
             this.Controls.Add(this.btn_HookListen);
@@ -179,7 +179,7 @@
         private System.Windows.Forms.TextBox text_Log;
         private System.Windows.Forms.Label lab_State_NetCatch;
         private System.Windows.Forms.TextBox text_Setting;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lab_State_Running;
         private System.Windows.Forms.Button btn_Setting;
         private System.Windows.Forms.Button btn_About;
     }

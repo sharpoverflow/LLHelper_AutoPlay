@@ -6,6 +6,9 @@ namespace LLHelper_AutoPlay
 {
     public class LLKeyboardSimulator
     {
+        public delegate void OnOver();
+        public OnOver onOver;
+
         private MusicNotes mn;
 
         private Dictionary<byte, byte> pos2key;
@@ -51,6 +54,7 @@ namespace LLHelper_AutoPlay
                 Thread.Sleep(1);
             }
             isRun = false;
+            onOver?.Invoke();
         }
 
         private void SendForATime(object obj)
@@ -84,14 +88,24 @@ namespace LLHelper_AutoPlay
             Win32API.keybd_event(pos2key[pos], 0, 2, 0);
         }
 
-        public void Init(Dictionary<byte, byte> pos2key)
+        public void Init(Dictionary<byte, byte> pos2key1)
         {
-
+            pos2key = new Dictionary<byte, byte>();
+            pos2key.Add(1, Win32API.Key32.Key_L);
+            pos2key.Add(2, Win32API.Key32.Key_K);
+            pos2key.Add(3, Win32API.Key32.Key_J);
+            pos2key.Add(4, Win32API.Key32.Key_H);
+            pos2key.Add(5, Win32API.Key32.Key_Space);
+            pos2key.Add(6, Win32API.Key32.Key_F);
+            pos2key.Add(7, Win32API.Key32.Key_D);
+            pos2key.Add(8, Win32API.Key32.Key_S);
+            pos2key.Add(9, Win32API.Key32.Key_A);
         }
 
         public void Reset(MusicNotes mn)
         {
             this.mn = mn;
+            isRun = false;
         }
 
         public void Start()
@@ -112,7 +126,8 @@ namespace LLHelper_AutoPlay
 
         public void Stop()
         {
-
+            isRun = false;
+            onOver?.Invoke();
         }
 
         public void TrimForward()

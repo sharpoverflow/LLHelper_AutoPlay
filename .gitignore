@@ -4,4 +4,6 @@
 /LLHelper_AutoPlay/bin/Debug/SharpPcap.xml
 /LLHelper_AutoPlay/bin/Debug/PacketDotNet.xml
 /LLHelper_AutoPlay/bin/Release
-/.vs/LLHelper_AutoPlay/v15/.suo
+/.vs
+/LLHelper_AutoPlay/bin/Debug/LLHelper_AutoPlay.vshost.exe
+/LLHelper_AutoPlay/bin/Debug/LLHelper_AutoPlay.vshost.exe.manifest

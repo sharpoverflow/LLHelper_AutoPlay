@@ -54,23 +54,28 @@ public class Utils
     /// <returns></returns>
     public static string FormatJsonString(string str)
     {
-        JsonSerializer serializer = new JsonSerializer();
-        TextReader tr = new StringReader(str);
-        JsonTextReader jtr = new JsonTextReader(tr);
-        object obj = serializer.Deserialize(jtr);
-        if (obj != null)
+        try
         {
-            StringWriter textWriter = new StringWriter();
-            JsonTextWriter jsonWriter = new JsonTextWriter(textWriter)
+            JsonSerializer serializer = new JsonSerializer();
+            TextReader tr = new StringReader(str);
+            JsonTextReader jtr = new JsonTextReader(tr);
+            object obj = serializer.Deserialize(jtr);
+            if (obj != null)
             {
-                Formatting = Formatting.Indented,
-                Indentation = 4,
-                IndentChar = ' '
-            };
-            serializer.Serialize(jsonWriter, obj);
-            return textWriter.ToString();
+                StringWriter textWriter = new StringWriter();
+                JsonTextWriter jsonWriter = new JsonTextWriter(textWriter)
+                {
+                    Formatting = Formatting.Indented,
+                    Indentation = 4,
+                    IndentChar = ' '
+                };
+                serializer.Serialize(jsonWriter, obj);
+                return textWriter.ToString();
+            }
+            return str;
         }
-        return str;
+        catch { }
+        return str;     
     }
 
     /// <summary>
@@ -94,7 +99,12 @@ public class Utils
     /// <returns></returns>
     public static T Deserialize<T>(string json)
     {
-        return JsonConvert.DeserializeObject<T>(json);
+        try
+        {
+            return JsonConvert.DeserializeObject<T>(json);
+        }
+        catch { }
+        return default(T);
     }
 
 }
