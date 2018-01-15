@@ -103,7 +103,10 @@ public class Utils
         {
             return JsonConvert.DeserializeObject<T>(json);
         }
-        catch { }
+        catch(Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
         return default(T);
     }
 

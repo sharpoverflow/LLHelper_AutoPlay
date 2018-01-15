@@ -1,15 +1,19 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 
 namespace LLHelper_AutoPlay
 {
     public class LLKeyboardSimulator
     {
+        const string LiveDifficultyPath = "LiveDifficulty";
+
         public delegate void OnOver();
         public OnOver onOver;
 
-        private MusicNotes mn;
+        private Live_info li;
 
         private Dictionary<byte, byte> pos2key;
 
@@ -102,17 +106,56 @@ namespace LLHelper_AutoPlay
             pos2key.Add(9, Win32API.Key32.Key_A);
         }
 
-        public void Reset(MusicNotes mn)
+        public void Reset(Live_info li)
         {
-            this.mn = mn;
+            this.li = li;
             isRun = false;
+            Save();
+        }
+
+        public bool Reset(int live_difficulty_id)
+        {
+            return Load(live_difficulty_id);
+        }
+
+        private void Save()
+        {
+            try
+            {
+	            if (!Directory.Exists(LiveDifficultyPath))
+	            {
+	                Directory.CreateDirectory(LiveDifficultyPath);
+	            }
+	            string json = JsonConvert.SerializeObject(li, Formatting.Indented);
+	            File.WriteAllText(LiveDifficultyPath + "/" + li.live_difficulty_id.ToString("00000000") + ".txt", json);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message + "\n" + ex.StackTrace);
+            }
+        }
+
+        private bool Load(int live_difficulty_id)
+        {
+            try
+            {
+	            string path = LiveDifficultyPath + "/" + li.live_difficulty_id.ToString("00000000") + ".txt";
+	            if (File.Exists(path))
+	            {
+	                string json = File.ReadAllText(path);
+	                li = JsonConvert.DeserializeObject<Live_info>(json);
+	            }
+                return true;
+            }
+            catch { }
+            return false;
         }
 
         public void Start()
         {
             IntPtr h = Win32API.FindWindow(null, "Bluestacks App Player");
             Win32API.SetForegroundWindow(h);
-            Notes_list[] notelist = new List<Notes_list>(mn.response_data.live_list[0].live_info.notes_list).ToArray();
+            Notes_list[] notelist = new List<Notes_list>(li.notes_list).ToArray();
             float timeStart = notelist[0].timing_sec;
 
             for (int i = 0; i < notelist.Length; i++)

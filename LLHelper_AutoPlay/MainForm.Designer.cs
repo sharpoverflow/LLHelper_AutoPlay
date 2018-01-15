@@ -91,8 +91,6 @@
             this.text_Log.ReadOnly = true;
             this.text_Log.Size = new System.Drawing.Size(246, 225);
             this.text_Log.TabIndex = 5;
-            this.text_Log.Text = "adsf\r\nsadf\r\nsdaf\r\nsadf\r\nsadf\r\ndsafd\r\nsaf\r\ndsaf\r\ndsa\r\nfsda\r\nf\r\nsdaf\r\ndsa\r\nfsda\r\nfs" +
-    "a\r\nf\r\nsadf\r\ndsa\r\nfdsa\r\nf\r\nsadf\r\nasdf";
             // 
             // lab_State_NetCatch
             // 
@@ -113,7 +111,6 @@
             this.text_Setting.ReadOnly = true;
             this.text_Setting.Size = new System.Drawing.Size(246, 80);
             this.text_Setting.TabIndex = 5;
-            this.text_Setting.Text = "dfgds\r\nsdfg\r\nsdfg\r\nsdfg\r\nsdfg\r\nsdfg\r\nsdfg\r\nwr";
             // 
             // lab_State_Running
             // 

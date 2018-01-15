@@ -12,27 +12,9 @@ public partial class NetPackCatchJsonLL
     public StringDelegate onNewHttpAdd;
     public StringDelegate onNewHttpLLAdd;
 
-
-    //public class JsonResult
-    //{
-    //    public string json;
-    //    public JsonResult(string json)
-    //    {
-    //        this.name = name;
-    //        this.json = json;
-    //    }
-    //    public override string ToString()
-    //    {
-    //        if (json.Contains("friend_action_cnt")) return "主页刷新";
-    //        if (json.Contains("event_battle_room_id")) return "sm活动房间回应";
-    //        if (json.Contains("live_list")) return "歌曲谱面";
-    //        return "其他";
-    //    }
-    //}
-
     private static Regex reg_http = new Regex(@"HTTP");
-    private static Regex reg_json = new Regex(@"/json");
     private static Regex reg_lovelive = new Regex(@"lovelive");
+
     private int packetId;
 
     private Dictionary<uint, int[]> packTimeRest = new Dictionary<uint, int[]>();
@@ -67,8 +49,6 @@ public partial class NetPackCatchJsonLL
             packDic.Remove(p);
         }
 
-        //Console.WriteLine("count:" + packTimeRest.Count);
-
         if (!packetWrapper.tcpPacket.Psh) return;
 
         byte[] data = CombinePacket(ackn);
@@ -98,7 +78,7 @@ public partial class NetPackCatchJsonLL
         if(header.IndexOf("POST") == 0)
         {
             int lk = body.IndexOf("{");
-            int rk = body.IndexOf("}");
+            int rk = body.LastIndexOf("}");
             body = body.Substring(lk, rk - lk + 1);
 
             string sj = Utils.FormatJsonString(body);
@@ -150,7 +130,6 @@ public partial class NetPackCatchJsonLL
         bool result = true;
         try
         {
-            //result &= reg_json.Match(s).Success;
             result &= reg_lovelive.Match(s).Success;
             return result;
         }
@@ -231,10 +210,5 @@ public partial class NetPackCatchJsonLL
             return -1;
         }
     }
-
-
-
-
-
 
 }

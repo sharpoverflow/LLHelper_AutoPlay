@@ -26,6 +26,7 @@ namespace LLHelper_AutoPlay
 
         private HttpLogForm hl = new HttpLogForm();
         private LLKeyboardSimulator llks = new LLKeyboardSimulator();
+        private Setting setting;
 
         private bool simulateState = false;
 
@@ -33,6 +34,8 @@ namespace LLHelper_AutoPlay
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            setting = Setting.Load();
+
             npcj.onNewJsonAdd += OnNewJsonAdd;
             npcj.onNewHttpAdd += hl.OnNewHttpAdd;
             npcj.onNewHttpLLAdd += hl.OnNewHttpLLAdd;
@@ -41,22 +44,39 @@ namespace LLHelper_AutoPlay
 
         private void OnPlayOver()
         {
-            text_Log.Text = "";
+            LogClear();
+            Log("结束");
             SimulateOff();
         }
 
         private void OnNewJsonAdd(string json)
         {
+
+            int l = json.IndexOf("\"live_difficulty_id\"");
+            if (l >= 0)
+            {
+                int r = json.IndexOf(",", l);
+                string id = "";
+                string tem = json.Substring(l, r - l + 1);
+                for (int i = 0; i < tem.Length; i++)
+                {
+                    id += (tem[i] >= 48 && tem[i] <= 57) ? tem[i].ToString() : "";
+                }
+                int ldi = int.Parse(id);
+                bool b = llks.Reset(ldi);
+                Log("当前选择歌曲id: " + ldi);
+                if (!b) Log("历史记录中查询不到该歌曲,如果未捕获到谱面将会导致打歌失败");
+            }
+
             if (json.Contains("live_list"))
             {
                 MusicNotes mn = Utils.Deserialize<MusicNotes>(json);
                 if (mn == null) return;
 
-                string s = "歌曲谱面";
-                text_Log.Text = "";
-                text_Log.Text += DateTime.Now.ToLongTimeString() + " - " + s + "\r\n";
-                
-                llks.Reset(mn);
+                Live_info li = mn.response_data.live_list[0].live_info;
+
+                llks.Reset(li);
+                Log("谱面捕获 id: " + li.live_difficulty_id);
             }
         }
 
@@ -125,8 +145,6 @@ namespace LLHelper_AutoPlay
             llks.Start();
         }
 
-
-
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             npcj.Shutdown();
@@ -157,17 +175,6 @@ namespace LLHelper_AutoPlay
             }
         }
 
-        //mn = Utils.Deserialize<MusicNotes>(textBox3.Text);
-        //File.WriteAllText(@"E:\test\lovelive\note list\" 
-        //    + "[" + mn.response_data.live_list[0].live_info.live_difficulty_id 
-        //    + "][" + DateTime.Now.ToString("yyyyMMddHHmmss") 
-        //    + "][" + (mn.response_data.live_list[0].live_info.is_random ? 1 : 0).ToString() 
-        //    + "].txt", textBox3.Text);
-
-        //textBox3.Text = "\r\n反序列化成功\r\n\r\n" + textBox3.Text;
-        //SimulateOff();
-
-
         private void Btn_ShowHttpLog_Click(object sender, EventArgs e)
         {
             hl.ClearList();
@@ -176,12 +183,28 @@ namespace LLHelper_AutoPlay
 
         private void Btn_Setting_Click(object sender, EventArgs e)
         {
-
+            new SettingForm(setting).Show();
         }
 
         private void Btn_About_Click(object sender, EventArgs e)
         {
-
+            new AboutForm().Show();
         }
+
+        private void ShowSettingInfo()
+        {
+            text_Setting.Text = "";//adsad
+        }
+
+        private void Log(string text)
+        {
+            text_Log.Text = DateTime.Now.ToLongTimeString() + " - " + text + "\r\n\r\n" + text_Log.Text;
+        }
+
+        private void LogClear()
+        {
+            text_Log.Text = "";
+        }
+
     }
 }
