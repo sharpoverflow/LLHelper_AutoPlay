@@ -11,6 +11,8 @@ namespace LLHelper_AutoPlay
 {
     public partial class AboutForm : Form
     {
+        string url = "https://github.com/sharpoverflow/LLHelper_AutoPlay";
+
         public AboutForm()
         {
             InitializeComponent();
@@ -18,8 +20,12 @@ namespace LLHelper_AutoPlay
 
         private void Btn_Copy_Click(object sender, EventArgs e)
         {
-            string url = "https://github.com/sharpoverflow/LLHelper_AutoPlay";
             Clipboard.SetText(url);
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(url);
         }
     }
 }

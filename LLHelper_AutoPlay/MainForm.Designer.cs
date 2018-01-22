@@ -65,7 +65,7 @@
             // btn_NetCatch
             // 
             this.btn_NetCatch.Font = new System.Drawing.Font("宋体", 18F);
-            this.btn_NetCatch.Location = new System.Drawing.Point(138, 45);
+            this.btn_NetCatch.Location = new System.Drawing.Point(172, 45);
             this.btn_NetCatch.Name = "btn_NetCatch";
             this.btn_NetCatch.Size = new System.Drawing.Size(120, 40);
             this.btn_NetCatch.TabIndex = 3;
@@ -75,7 +75,7 @@
             // 
             // btn_ShowHttpLog
             // 
-            this.btn_ShowHttpLog.Location = new System.Drawing.Point(12, 472);
+            this.btn_ShowHttpLog.Location = new System.Drawing.Point(12, 632);
             this.btn_ShowHttpLog.Name = "btn_ShowHttpLog";
             this.btn_ShowHttpLog.Size = new System.Drawing.Size(78, 37);
             this.btn_ShowHttpLog.TabIndex = 4;
@@ -85,18 +85,19 @@
             // 
             // text_Log
             // 
-            this.text_Log.Location = new System.Drawing.Point(12, 241);
+            this.text_Log.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.text_Log.Location = new System.Drawing.Point(12, 323);
             this.text_Log.Multiline = true;
             this.text_Log.Name = "text_Log";
             this.text_Log.ReadOnly = true;
-            this.text_Log.Size = new System.Drawing.Size(246, 225);
+            this.text_Log.Size = new System.Drawing.Size(280, 303);
             this.text_Log.TabIndex = 5;
             // 
             // lab_State_NetCatch
             // 
             this.lab_State_NetCatch.Font = new System.Drawing.Font("黑体", 24F, System.Drawing.FontStyle.Bold);
             this.lab_State_NetCatch.ForeColor = System.Drawing.Color.Red;
-            this.lab_State_NetCatch.Location = new System.Drawing.Point(138, 9);
+            this.lab_State_NetCatch.Location = new System.Drawing.Point(172, 9);
             this.lab_State_NetCatch.Name = "lab_State_NetCatch";
             this.lab_State_NetCatch.Size = new System.Drawing.Size(120, 33);
             this.lab_State_NetCatch.TabIndex = 1;
@@ -105,11 +106,12 @@
             // 
             // text_Setting
             // 
+            this.text_Setting.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.text_Setting.Location = new System.Drawing.Point(12, 155);
             this.text_Setting.Multiline = true;
             this.text_Setting.Name = "text_Setting";
             this.text_Setting.ReadOnly = true;
-            this.text_Setting.Size = new System.Drawing.Size(246, 80);
+            this.text_Setting.Size = new System.Drawing.Size(280, 162);
             this.text_Setting.TabIndex = 5;
             // 
             // lab_State_Running
@@ -118,24 +120,24 @@
             this.lab_State_Running.ForeColor = System.Drawing.Color.Red;
             this.lab_State_Running.Location = new System.Drawing.Point(12, 88);
             this.lab_State_Running.Name = "lab_State_Running";
-            this.lab_State_Running.Size = new System.Drawing.Size(246, 64);
+            this.lab_State_Running.Size = new System.Drawing.Size(280, 64);
             this.lab_State_Running.TabIndex = 1;
             this.lab_State_Running.Text = "未运行";
             this.lab_State_Running.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btn_Setting
             // 
-            this.btn_Setting.Location = new System.Drawing.Point(96, 472);
+            this.btn_Setting.Location = new System.Drawing.Point(96, 632);
             this.btn_Setting.Name = "btn_Setting";
-            this.btn_Setting.Size = new System.Drawing.Size(78, 37);
+            this.btn_Setting.Size = new System.Drawing.Size(112, 37);
             this.btn_Setting.TabIndex = 6;
             this.btn_Setting.Text = "设置";
             this.btn_Setting.UseVisualStyleBackColor = true;
-            this.btn_Setting.Click += new System.EventHandler(this.Btn_Setting_Click);
+            this.btn_Setting.Click += new System.EventHandler(this.Btn_ShowSetting_Click);
             // 
             // btn_About
             // 
-            this.btn_About.Location = new System.Drawing.Point(180, 472);
+            this.btn_About.Location = new System.Drawing.Point(214, 632);
             this.btn_About.Name = "btn_About";
             this.btn_About.Size = new System.Drawing.Size(78, 37);
             this.btn_About.TabIndex = 6;
@@ -147,7 +149,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(270, 517);
+            this.ClientSize = new System.Drawing.Size(304, 681);
             this.Controls.Add(this.btn_About);
             this.Controls.Add(this.btn_Setting);
             this.Controls.Add(this.text_Setting);

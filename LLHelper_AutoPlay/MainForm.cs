@@ -25,17 +25,17 @@ namespace LLHelper_AutoPlay
         }
 
         private HttpLogForm hl = new HttpLogForm();
-        private LLKeyboardSimulator llks = new LLKeyboardSimulator();
+        private LLKeyboardSimulator llks;
         private Setting setting;
+        private NetPackCatchJsonLL npcj = new NetPackCatchJsonLL();
 
         private bool simulateState = false;
-
-        private NetPackCatchJsonLL npcj = new NetPackCatchJsonLL();
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             setting = Setting.Load();
-
+            llks = new LLKeyboardSimulator(setting);
+            ShowSettingInfo();
             npcj.onNewJsonAdd += OnNewJsonAdd;
             npcj.onNewHttpAdd += hl.OnNewHttpAdd;
             npcj.onNewHttpLLAdd += hl.OnNewHttpLLAdd;
@@ -100,25 +100,33 @@ namespace LLHelper_AutoPlay
 
         private void ListenNumpad(Keys k)
         {
-            switch (k)
+            try
             {
-                case Keys.F7:
-                    SimulateOff();
-                    break;
-                case Keys.F6:
-                    SimulateOn();
-                    break;
-                case Keys.F8:
-                    llks.TrimForward();
-                    break;
-                case Keys.F9:
-                    llks.TrimBackward();
-                    break;
-                case Keys.F3:
-                    Win32API.keybd_event(Win32API.Key32.Key_A, 0, 0, 0);
-                    Win32API.keybd_event(Win32API.Key32.Key_A, 0, 2, 0);
-                    Win32API.keybd_event(Win32API.Key32.Key_A, 0, 2, 0);
-                    break;
+                switch (k)
+                {
+                    case Keys.F7:
+                        SimulateOff();
+                        break;
+                    case Keys.F6:
+                        SimulateOn();
+                        break;
+                    case Keys.F8:
+                        llks.TrimForward();
+                        break;
+                    case Keys.F9:
+                        llks.TrimBackward();
+                        break;
+                    case Keys.F3:
+                        Win32API.keybd_event(Win32API.Key32.Key_A, 0, 0, 0);
+                        Win32API.keybd_event(Win32API.Key32.Key_A, 0, 2, 0);
+                        Win32API.keybd_event(Win32API.Key32.Key_A, 0, 2, 0);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\r\n" + ex.StackTrace);
+                Application.Exit();
             }
         }
 
@@ -141,7 +149,6 @@ namespace LLHelper_AutoPlay
             lab_State_Running.Text = "运行中";
             lab_State_Running.ForeColor = Color.Green;
 
-            llks.Init(null);
             llks.Start();
         }
 
@@ -181,9 +188,11 @@ namespace LLHelper_AutoPlay
             hl.Visible = true;
         }
 
-        private void Btn_Setting_Click(object sender, EventArgs e)
+        private void Btn_ShowSetting_Click(object sender, EventArgs e)
         {
-            new SettingForm(setting).Show();
+            SettingForm sf = new SettingForm(setting);
+            sf.onSave += ShowSettingInfo;
+            sf.Show();
         }
 
         private void Btn_About_Click(object sender, EventArgs e)
@@ -193,7 +202,21 @@ namespace LLHelper_AutoPlay
 
         private void ShowSettingInfo()
         {
-            text_Setting.Text = "";//adsad
+            string s = "按键配置: [";
+
+            for (byte i = 9; i >= 1; i--)
+            {
+                s += (char)setting.pos2key[i];
+            }
+            s += "]\r\n";
+            s += "全局按键: [F6开始][F7停止]\r\n";
+            s += "  击键偏移[F8前移][F9后移]\r\n";
+            s += $"击键偏移量(tick): {setting.trimValue}\r\n";
+            s += $"单击模拟时长(s): {setting.oneKeyLoopTime}\r\n";
+            s += $"击键后延时(tick): {setting.keyAfterTickOffset}\r\n";
+            s += $"长按击键间隔(ms): {setting.longpressInterval}\r\n";
+            s += $"{setting.appName}";
+            text_Setting.Text = s;
         }
 
         private void Log(string text)
