@@ -12,8 +12,7 @@ namespace LLHelper_AutoPlay
 
         const double e7 = 10000000.000;
 
-        public delegate void OnOver();
-        public OnOver onOver;
+        public Action onOver;
 
         private Live_info li;
 
@@ -58,6 +57,7 @@ namespace LLHelper_AutoPlay
                 }
                 Thread.Sleep(1);
             }
+            Thread.Sleep((int)(nl[nl.Length - 1].effect_value * 1000) + 800);
             isRun = false;
             onOver?.Invoke();
         }
