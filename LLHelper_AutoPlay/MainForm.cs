@@ -25,6 +25,7 @@ namespace LLHelper_AutoPlay
         }
 
         private HttpLogForm hl = new HttpLogForm();
+        private ColorPlayForm cpf;
         private LLKeyboardSimulator llks;
         private Setting setting;
         private NetPackCatchJsonLL npcj = new NetPackCatchJsonLL();
@@ -133,6 +134,11 @@ namespace LLHelper_AutoPlay
 
         private void SimulateOff()
         {
+            if (cpf != null && !cpf.IsDisposed)
+            {
+                cpf.Stop();
+            }
+
             if (!simulateState) return;
             simulateState = false;
 
@@ -230,5 +236,13 @@ namespace LLHelper_AutoPlay
             text_Log.Text = "";
         }
 
+        private void Btn_ShowColorPlayForm_Click(object sender, EventArgs e)
+        {
+            if (cpf == null || cpf.IsDisposed)
+            {
+                cpf = new ColorPlayForm(setting);
+                cpf.Show();
+            }
+        }
     }
 }

@@ -38,6 +38,8 @@
             this.lab_State_Running = new System.Windows.Forms.Label();
             this.btn_Setting = new System.Windows.Forms.Button();
             this.btn_About = new System.Windows.Forms.Button();
+            this.btn_ShowColorPlayForm = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_HookListen
@@ -127,9 +129,9 @@
             // 
             // btn_Setting
             // 
-            this.btn_Setting.Location = new System.Drawing.Point(96, 632);
+            this.btn_Setting.Location = new System.Drawing.Point(206, 632);
             this.btn_Setting.Name = "btn_Setting";
-            this.btn_Setting.Size = new System.Drawing.Size(112, 37);
+            this.btn_Setting.Size = new System.Drawing.Size(40, 37);
             this.btn_Setting.TabIndex = 6;
             this.btn_Setting.Text = "设置";
             this.btn_Setting.UseVisualStyleBackColor = true;
@@ -137,19 +139,41 @@
             // 
             // btn_About
             // 
-            this.btn_About.Location = new System.Drawing.Point(214, 632);
+            this.btn_About.Location = new System.Drawing.Point(252, 632);
             this.btn_About.Name = "btn_About";
-            this.btn_About.Size = new System.Drawing.Size(78, 37);
+            this.btn_About.Size = new System.Drawing.Size(40, 37);
             this.btn_About.TabIndex = 6;
             this.btn_About.Text = "关于";
             this.btn_About.UseVisualStyleBackColor = true;
             this.btn_About.Click += new System.EventHandler(this.Btn_About_Click);
+            // 
+            // btn_ShowColorPlayForm
+            // 
+            this.btn_ShowColorPlayForm.Location = new System.Drawing.Point(96, 632);
+            this.btn_ShowColorPlayForm.Name = "btn_ShowColorPlayForm";
+            this.btn_ShowColorPlayForm.Size = new System.Drawing.Size(104, 37);
+            this.btn_ShowColorPlayForm.TabIndex = 7;
+            this.btn_ShowColorPlayForm.Text = "图色打歌工具\r\n(测试)";
+            this.btn_ShowColorPlayForm.UseVisualStyleBackColor = true;
+            this.btn_ShowColorPlayForm.Click += new System.EventHandler(this.Btn_ShowColorPlayForm_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(229, 575);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(54, 42);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "选谱";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(304, 681);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_ShowColorPlayForm);
             this.Controls.Add(this.btn_About);
             this.Controls.Add(this.btn_Setting);
             this.Controls.Add(this.text_Setting);
@@ -181,6 +205,8 @@
         private System.Windows.Forms.Label lab_State_Running;
         private System.Windows.Forms.Button btn_Setting;
         private System.Windows.Forms.Button btn_About;
+        private System.Windows.Forms.Button btn_ShowColorPlayForm;
+        private System.Windows.Forms.Button button1;
     }
 }
 

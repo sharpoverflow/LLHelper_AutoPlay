@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -42,6 +43,18 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\PacketDotNet.dll</HintPath>
     </Reference>
+    <Reference Include="SharpDX, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Direct3D11, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\SharpDX.Direct3D11.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.DXGI, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\SharpDX.DXGI.dll</HintPath>
+    </Reference>
     <Reference Include="SharpPcap, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\SharpPcap.dll</HintPath>
@@ -63,6 +76,13 @@
     </Compile>
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BmpColor.cs" />
+    <Compile Include="ColorPlayForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ColorPlayForm.Designer.cs">
+      <DependentUpon>ColorPlayForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DeviceListForm.cs">
       <SubType>Form</SubType>
@@ -89,6 +109,7 @@
     <Compile Include="NetPackCatchJsonLLRaw.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScreenStateLogger.cs" />
     <Compile Include="Setting.cs" />
     <Compile Include="SettingForm.cs">
       <SubType>Form</SubType>
@@ -97,9 +118,13 @@
       <DependentUpon>SettingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
+    <Compile Include="Vector2Int.cs" />
     <Compile Include="Win32API.cs" />
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ColorPlayForm.resx">
+      <DependentUpon>ColorPlayForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DeviceListForm.resx">
       <DependentUpon>DeviceListForm.cs</DependentUpon>

@@ -1,5 +1,6 @@
 ﻿using PacketDotNet;
 using SharpPcap;
+using SharpPcap.WinPcap;
 using System;
 
 public partial class NetPackCatchJsonLL
@@ -24,7 +25,9 @@ public partial class NetPackCatchJsonLL
 
     private CaptureStoppedEventHandler captureStoppedEventHandler;
 
-    private ICaptureDevice device;
+    private WinPcapDevice device;
+
+    //private ICaptureDevice device;
 
     public void ShowSelectDeviceWindow()
     {
@@ -55,12 +58,13 @@ public partial class NetPackCatchJsonLL
     private void StartCapture(int itemIndex)
     {
         packetId = 0;
-        device = CaptureDeviceList.Instance[itemIndex];
+        device = CaptureDeviceList.Instance[itemIndex] as WinPcapDevice;
         arrivalEventHandler = new PacketArrivalEventHandler(OnPacketArrival);
         device.OnPacketArrival += arrivalEventHandler;
         captureStoppedEventHandler = new CaptureStoppedEventHandler(OnCaptureStopped);
         device.OnCaptureStopped += captureStoppedEventHandler;
-        device.Open();
+        device.Open(OpenFlags.MaxResponsiveness, 1000);
+        device.KernelBufferSize = 104857600;
         device.Filter = "ip and tcp";
         device.StartCapture();
     }
