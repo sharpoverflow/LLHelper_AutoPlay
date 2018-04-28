@@ -32,6 +32,7 @@ F6开始 F7停止 F8前移 F9后移
 5.SM  
 6.CF  
 7.协力  
+8.散拉  
 
 # 视频教程
 https://www.bilibili.com/video/av18586488/
