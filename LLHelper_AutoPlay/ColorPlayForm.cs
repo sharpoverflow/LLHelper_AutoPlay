@@ -228,9 +228,6 @@ namespace LLHelper_AutoPlay
                         }
                     }
 
-                    //Console.WriteLine(matches + " " + sum);
-
-
                     keyCtrl[k] = matches / (float)sum;
                 }
             }

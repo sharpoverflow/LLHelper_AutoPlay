@@ -49,12 +49,13 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("宋体", 12F);
+            this.label1.Font = new System.Drawing.Font("宋体", 10F);
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(408, 48);
+            this.label1.Size = new System.Drawing.Size(434, 42);
             this.label1.TabIndex = 1;
-            this.label1.Text = "本工具稳定性一般,目前能够平稳度过EX难度(不能够FC).\r\n! 强调: 为了稳定运行,需要将打歌速度调整为1速 !\r\n当抓包失败时,可使用本工具辅助打歌.";
+            this.label1.Text = "本工具稳定性一般,目前能够平稳度过EX难度(不能够FC).\r\n! 强调: 需要将游戏按键样式调整为第三种.为了稳定运行,\r\n需要将打歌速度调整为2-3速 !当抓包" +
+    "失败时,可使用本工具辅助打歌.";
             // 
             // btn_GetPos
             // 

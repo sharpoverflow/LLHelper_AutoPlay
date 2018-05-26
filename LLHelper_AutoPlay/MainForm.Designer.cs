@@ -40,6 +40,7 @@
             this.btn_About = new System.Windows.Forms.Button();
             this.btn_ShowColorPlayForm = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btn_HookListen
@@ -167,11 +168,21 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Visible = false;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(149, 672);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(143, 12);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "更新 : 2018-05-26 11:00";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(304, 681);
+            this.ClientSize = new System.Drawing.Size(304, 691);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btn_ShowColorPlayForm);
             this.Controls.Add(this.btn_About);
@@ -207,6 +218,7 @@
         private System.Windows.Forms.Button btn_About;
         private System.Windows.Forms.Button btn_ShowColorPlayForm;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label1;
     }
 }
 

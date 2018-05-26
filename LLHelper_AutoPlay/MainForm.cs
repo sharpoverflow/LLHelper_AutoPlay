@@ -69,7 +69,14 @@ namespace LLHelper_AutoPlay
                 if (!b) Log("历史记录中查询不到该歌曲,如果未捕获到谱面将会导致打歌失败");
             }
 
-            if (json.IndexOf("\"notes_speed\"") < 0) return;
+            bool isLiveList = false;
+
+            isLiveList |= json.Contains("\"notes_speed\"");
+            isLiveList |= json.Contains("\"is_random\"");
+            isLiveList &= json.Contains("\"timing_sec\"");
+
+            if (!isLiveList) return;
+
             if (json.Contains("live_list"))
             {
                 MusicNotes mn = Utils.Deserialize<MusicNotes>(json);
