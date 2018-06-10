@@ -53,7 +53,7 @@ namespace LLHelper_AutoPlay
         private void OnNewJsonAdd(string json)
         {
 
-            int l = json.IndexOf("\"live_difficulty_id\"");
+            int l = json.LastIndexOf("\"live_difficulty_id\"");
             if (l >= 0)
             {
                 int r = json.IndexOf(",", l);
@@ -69,12 +69,17 @@ namespace LLHelper_AutoPlay
                 if (!b) Log("历史记录中查询不到该歌曲,如果未捕获到谱面将会导致打歌失败");
             }
 
-            bool isLiveList = false;
+            //
+            //bool isCFEvent = true;
+            //isCFEvent &= json.Contains("challenge_info");
+            //isCFEvent &= json.Contains("round");
+            //应继续搜索live_difficulty_id
+            //
 
+            bool isLiveList = false;
             isLiveList |= json.Contains("\"notes_speed\"");
             isLiveList |= json.Contains("\"is_random\"");
             isLiveList &= json.Contains("\"timing_sec\"");
-
             if (!isLiveList) return;
 
             if (json.Contains("live_list"))
