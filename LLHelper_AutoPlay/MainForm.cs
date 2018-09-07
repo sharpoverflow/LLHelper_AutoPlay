@@ -32,7 +32,7 @@ namespace LLHelper_AutoPlay
 
         private bool simulateState = false;
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender , EventArgs e)
         {
             setting = Setting.Load();
             llks = new LLKeyboardSimulator(setting);
@@ -56,10 +56,10 @@ namespace LLHelper_AutoPlay
             int l = json.LastIndexOf("\"live_difficulty_id\"");
             if (l >= 0)
             {
-                int r = json.IndexOf(",", l);
+                int r = json.IndexOf("," , l);
                 string id = "";
-                string tem = json.Substring(l, r - l + 1);
-                for (int i = 0; i < tem.Length; i++)
+                string tem = json.Substring(l , r - l + 1);
+                for (int i = 0 ; i < tem.Length ; i++)
                 {
                     id += (tem[i] >= 48 && tem[i] <= 57) ? tem[i].ToString() : "";
                 }
@@ -94,7 +94,7 @@ namespace LLHelper_AutoPlay
             }
         }
 
-        private void Btn_HookListen_Click(object sender, EventArgs e)
+        private void Btn_HookListen_Click(object sender , EventArgs e)
         {
             if (btn_HookListen.Text == "停止监听")
             {
@@ -131,9 +131,9 @@ namespace LLHelper_AutoPlay
                         llks.TrimBackward();
                         break;
                     case Keys.F3:
-                        Win32API.keybd_event(Win32API.Key32.Key_A, 0, 0, 0);
-                        Win32API.keybd_event(Win32API.Key32.Key_A, 0, 2, 0);
-                        Win32API.keybd_event(Win32API.Key32.Key_A, 0, 2, 0);
+                        Win32API.keybd_event(Win32API.Key32.Key_A , 0 , 0 , 0);
+                        Win32API.keybd_event(Win32API.Key32.Key_A , 0 , 2 , 0);
+                        Win32API.keybd_event(Win32API.Key32.Key_A , 0 , 2 , 0);
                         break;
                 }
             }
@@ -171,14 +171,14 @@ namespace LLHelper_AutoPlay
             llks.Start();
         }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void MainForm_FormClosing(object sender , FormClosingEventArgs e)
         {
             npcj.Shutdown();
             Process.GetCurrentProcess().Kill();
             this.Dispose();
         }
 
-        private void Btn_NetCatch_Click(object sender, EventArgs e)
+        private void Btn_NetCatch_Click(object sender , EventArgs e)
         {
             if (btn_NetCatch.Text == "停止抓包")
             {
@@ -201,20 +201,20 @@ namespace LLHelper_AutoPlay
             }
         }
 
-        private void Btn_ShowHttpLog_Click(object sender, EventArgs e)
+        private void Btn_ShowHttpLog_Click(object sender , EventArgs e)
         {
             hl.ClearList();
             hl.Visible = true;
         }
 
-        private void Btn_ShowSetting_Click(object sender, EventArgs e)
+        private void Btn_ShowSetting_Click(object sender , EventArgs e)
         {
             SettingForm sf = new SettingForm(setting);
             sf.onSave += ShowSettingInfo;
             sf.Show();
         }
 
-        private void Btn_About_Click(object sender, EventArgs e)
+        private void Btn_About_Click(object sender , EventArgs e)
         {
             new AboutForm().Show();
         }
@@ -223,7 +223,7 @@ namespace LLHelper_AutoPlay
         {
             string s = "按键配置: [";
 
-            for (byte i = 9; i >= 1; i--)
+            for (byte i = 9 ; i >= 1 ; i--)
             {
                 s += (char)setting.pos2key[i];
             }
@@ -248,7 +248,7 @@ namespace LLHelper_AutoPlay
             text_Log.Text = "";
         }
 
-        private void Btn_ShowColorPlayForm_Click(object sender, EventArgs e)
+        private void Btn_ShowColorPlayForm_Click(object sender , EventArgs e)
         {
             if (cpf == null || cpf.IsDisposed)
             {
@@ -256,5 +256,95 @@ namespace LLHelper_AutoPlay
                 cpf.Show();
             }
         }
+
+        private void Btn_LoadListFromFile_Click(object sender , EventArgs e)
+        {
+            openFileDialog.Title = "选取谱面数据";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    string json = Encoding.UTF8.GetString(File.ReadAllBytes(openFileDialog.FileName));
+
+                    Live_info li = Utils.Deserialize<Live_info>(json);
+                    llks.Reset(li);
+                    Log("手动载入谱面 id: " + li.live_difficulty_id);
+                }
+                catch
+                {
+                    Log("载入失败");
+                }
+            }
+        }
+
+        //数据来源 "http://a.llsif.win/"
+        //谱面数据-名称表 "http://r.llsif.win/maps.json"
+        //谱面数据-数据表 "http://a.llsif.win/live/json/[live_setting_id=1]"
+        private void Btn_GetLivelist_Click(object sender , EventArgs e)
+        {
+            if (MessageBox.Show("是否从 http://llsif.win 下载谱面数据?" , "下载谱面数据" , MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                folderBrowserDialog.Description = "选择谱面保存位置(文件夹),相同名称文件执行覆盖操作";
+
+                if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+                {
+                    bool isThread = true;
+                    string message = "";
+                    new Thread(() =>
+                    {
+                        try
+                        {
+                            string listJson = Utils.GetWebString("http://r.llsif.win/maps.json");
+                            List<RD3Map> rd3Maps = Utils.Deserialize<List<RD3Map>>(listJson);
+                            string path = folderBrowserDialog.SelectedPath + "/";
+
+                            string mapJson = Utils.Serialize(rd3Maps);
+                            File.WriteAllBytes(path + "0_map.txt" , Encoding.UTF8.GetBytes(mapJson));
+
+                            for (int i = 0 ; i < rd3Maps.Count ; i++)
+                            {
+                                RD3Map rd3 = rd3Maps[i];
+                                string noteJson = Utils.GetWebString("http://a.llsif.win/live/json/" + rd3.live_setting_id);
+                                Notes_list[] nl = Utils.Deserialize<Notes_list[]>(noteJson);
+                                Live_info li = new Live_info
+                                {
+                                    is_random = false ,
+                                    notes_speed = 0.0f ,
+                                    live_difficulty_id = rd3.live_setting_id ,
+                                    notes_list = nl
+                                };
+                                string liveJson = Utils.Serialize(li);
+                                string liveName = $"{rd3.live_setting_id.ToString("00000000")}-{rd3.name}-{rd3.difficulty_text}";
+                                liveName = liveName.ReplaceToSpace("\\" , "/" , ":" , "*" , "?" , "\"" , "<" , ">" , "|");
+                                File.WriteAllBytes(path + liveName + ".txt" , Encoding.UTF8.GetBytes(liveJson));
+
+                                message = i + " / " + rd3Maps.Count;
+                            }
+                            isThread = false;
+                            MessageBox.Show("完成");
+                            LogClear();
+                        }
+                        catch (Exception ex)
+                        {
+                            isThread = false;
+                            Thread.Sleep(300);
+                            LogClear();
+                            MessageBox.Show("网络异常\r\n" + ex.Message + ex.StackTrace);
+                        }
+                    }).Start();
+                    new Thread(() =>
+                    {
+                        while (isThread)
+                        {
+                            LogClear();
+                            Log(message);
+                            Thread.Sleep(500);
+                        }
+                    }).Start();
+                }
+            }
+        }
+
+
     }
 }

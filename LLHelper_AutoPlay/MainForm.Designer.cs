@@ -39,8 +39,11 @@
             this.btn_Setting = new System.Windows.Forms.Button();
             this.btn_About = new System.Windows.Forms.Button();
             this.btn_ShowColorPlayForm = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_LoadListFromFile = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.btn_GetLivelist = new System.Windows.Forms.Button();
+            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.SuspendLayout();
             // 
             // btn_HookListen
@@ -130,7 +133,7 @@
             // 
             // btn_Setting
             // 
-            this.btn_Setting.Location = new System.Drawing.Point(206, 632);
+            this.btn_Setting.Location = new System.Drawing.Point(206, 675);
             this.btn_Setting.Name = "btn_Setting";
             this.btn_Setting.Size = new System.Drawing.Size(40, 37);
             this.btn_Setting.TabIndex = 6;
@@ -140,7 +143,7 @@
             // 
             // btn_About
             // 
-            this.btn_About.Location = new System.Drawing.Point(252, 632);
+            this.btn_About.Location = new System.Drawing.Point(252, 675);
             this.btn_About.Name = "btn_About";
             this.btn_About.Size = new System.Drawing.Size(40, 37);
             this.btn_About.TabIndex = 6;
@@ -158,32 +161,47 @@
             this.btn_ShowColorPlayForm.UseVisualStyleBackColor = true;
             this.btn_ShowColorPlayForm.Click += new System.EventHandler(this.Btn_ShowColorPlayForm_Click);
             // 
-            // button1
+            // btn_LoadListFromFile
             // 
-            this.button1.Location = new System.Drawing.Point(229, 575);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(54, 42);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "选谱";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
+            this.btn_LoadListFromFile.Location = new System.Drawing.Point(206, 632);
+            this.btn_LoadListFromFile.Name = "btn_LoadListFromFile";
+            this.btn_LoadListFromFile.Size = new System.Drawing.Size(86, 37);
+            this.btn_LoadListFromFile.TabIndex = 8;
+            this.btn_LoadListFromFile.Text = "选谱";
+            this.btn_LoadListFromFile.UseVisualStyleBackColor = true;
+            this.btn_LoadListFromFile.Click += new System.EventHandler(this.Btn_LoadListFromFile_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(149, 672);
+            this.label1.Location = new System.Drawing.Point(149, 716);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(143, 12);
             this.label1.TabIndex = 9;
-            this.label1.Text = "更新 : 2018-06-10 22:00";
+            this.label1.Text = "更新 : 2018-09-07 16:00";
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "谱面数据";
+            // 
+            // btn_GetLivelist
+            // 
+            this.btn_GetLivelist.Location = new System.Drawing.Point(12, 675);
+            this.btn_GetLivelist.Name = "btn_GetLivelist";
+            this.btn_GetLivelist.Size = new System.Drawing.Size(78, 37);
+            this.btn_GetLivelist.TabIndex = 10;
+            this.btn_GetLivelist.Text = "获取谱面";
+            this.btn_GetLivelist.UseVisualStyleBackColor = true;
+            this.btn_GetLivelist.Click += new System.EventHandler(this.Btn_GetLivelist_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(304, 691);
+            this.ClientSize = new System.Drawing.Size(304, 737);
+            this.Controls.Add(this.btn_GetLivelist);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_LoadListFromFile);
             this.Controls.Add(this.btn_ShowColorPlayForm);
             this.Controls.Add(this.btn_About);
             this.Controls.Add(this.btn_Setting);
@@ -217,8 +235,11 @@
         private System.Windows.Forms.Button btn_Setting;
         private System.Windows.Forms.Button btn_About;
         private System.Windows.Forms.Button btn_ShowColorPlayForm;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_LoadListFromFile;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.Button btn_GetLivelist;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
     }
 }
 

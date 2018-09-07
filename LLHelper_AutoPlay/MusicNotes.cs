@@ -70,5 +70,34 @@ namespace LLHelper_AutoPlay
         public int status_code;
     }
 
+    [Serializable]
+    public class RD3Map
+    {
+        public int live_track_id;
+        public string name;
+        public string name_kana;
+        public string title_asset;
+        public string sound_asset;
+        public int member_category;
+        public int member_tag_id;
+        public int live_setting_id;
+        public int difficulty;
+        public int stage_level;
+        public int attribute_icon_id;
+        public string live_icon_asset;
+        public int asset_background_id;
+        public string notes_setting_asset;
+        public int c_rank_score;
+        public int b_rank_score;
+        public int a_rank_score;
+        public int s_rank_score;
+        public int c_rank_combo;
+        public int b_rank_combo;
+        public int a_rank_combo;
+        public int s_rank_combo;
+        public string difficulty_text;
+    }
+
+
 }
 

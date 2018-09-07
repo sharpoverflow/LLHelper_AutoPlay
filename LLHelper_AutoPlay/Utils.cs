@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Net;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.RegularExpressions;
 
-public class Utils
+public static class Utils
 {
 
     /// <summary>
@@ -21,24 +22,24 @@ public class Utils
         try
         {
             MemoryStream ms = new MemoryStream(data);
-            GZipStream compressedzipStream = new GZipStream(ms, CompressionMode.Decompress);
+            GZipStream compressedzipStream = new GZipStream(ms , CompressionMode.Decompress);
             MemoryStream outBuffer = new MemoryStream();
             byte[] block = new byte[1024];
             while (true)
             {
-                int bytesRead = compressedzipStream.Read(block, 0, block.Length);
+                int bytesRead = compressedzipStream.Read(block , 0 , block.Length);
                 if (bytesRead <= 0)
                     break;
                 else
-                    outBuffer.Write(block, 0, bytesRead);
+                    outBuffer.Write(block , 0 , bytesRead);
             }
             compressedzipStream.Close();
             return outBuffer.ToArray();
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             Console.WriteLine("解压失败,数据 " + data.Length + " 字节");
-            for (int i = 0; i < 20; i++)
+            for (int i = 0 ; i < 20 ; i++)
             {
                 Console.Write(data[i].ToString("X") + " ");
             }
@@ -65,17 +66,17 @@ public class Utils
                 StringWriter textWriter = new StringWriter();
                 JsonTextWriter jsonWriter = new JsonTextWriter(textWriter)
                 {
-                    Formatting = Formatting.Indented,
-                    Indentation = 4,
+                    Formatting = Formatting.Indented ,
+                    Indentation = 4 ,
                     IndentChar = ' '
                 };
-                serializer.Serialize(jsonWriter, obj);
+                serializer.Serialize(jsonWriter , obj);
                 return textWriter.ToString();
             }
             return str;
         }
         catch { }
-        return str;     
+        return str;
     }
 
     /// <summary>
@@ -85,9 +86,9 @@ public class Utils
     /// <returns></returns>
     public static string Unicode2String(string source)
     {
-        return new Regex(@"\\u([0-9A-F]{4})", RegexOptions.IgnoreCase | RegexOptions.Compiled).
-            Replace(source, x =>
-            string.Empty + Convert.ToChar(Convert.ToUInt16(x.Result("$1"), 16))
+        return new Regex(@"\\u([0-9A-F]{4})" , RegexOptions.IgnoreCase | RegexOptions.Compiled).
+            Replace(source , x =>
+             string.Empty + Convert.ToChar(Convert.ToUInt16(x.Result("$1") , 16))
             );
     }
 
@@ -103,11 +104,36 @@ public class Utils
         {
             return JsonConvert.DeserializeObject<T>(json);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
         }
         return default(T);
     }
 
+    public static string Serialize(object obj)
+    {
+        return JsonConvert.SerializeObject(obj , Formatting.Indented);
+    }
+
+    public static string GetWebString(string url)
+    {
+        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+        Stream receiveStream = response.GetResponseStream();
+        StreamReader readStream = new StreamReader(receiveStream , Encoding.UTF8);
+        string SourceCode = readStream.ReadToEnd();
+        response.Close();
+        readStream.Close();
+        return SourceCode;
+    }
+
+    public static string ReplaceToSpace(this string s , params string[] remove)
+    {
+        for (int i = 0 ; i < remove.Length ; i++)
+        {
+            s = s.Replace(remove[i] , " ");
+        }
+        return s;
+    }
 }
