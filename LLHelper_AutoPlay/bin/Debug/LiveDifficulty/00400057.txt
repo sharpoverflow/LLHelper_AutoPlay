@@ -1,7 +1,7 @@
 {
   "live_difficulty_id": 400057,
   "is_random": false,
-  "notes_speed": 0.8,
+  "notes_speed": 0.0,
   "notes_list": [
     {
       "timing_sec": 2.12,
