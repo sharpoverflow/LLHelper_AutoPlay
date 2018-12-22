@@ -124,6 +124,12 @@ namespace LLHelper_AutoPlay
                     case Keys.F6:
                         SimulateOn();
                         break;
+                    case Keys.F1:
+                        llks.TrimForwardSlow();
+                        break;
+                    case Keys.F2:
+                        llks.TrimBackwardSlow();
+                        break;
                     case Keys.F8:
                         llks.TrimForward();
                         break;

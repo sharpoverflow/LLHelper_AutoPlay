@@ -44,6 +44,7 @@ namespace LLHelper_AutoPlay
                         if (nl[i].timing_sec <= (DateTime.Now.Ticks - startTick) / e7)
                         {
                             startTick += setting.keyAfterTickOffset;
+                            //note开始击键表示 = 0
                             nl[i].notes_attribute = 0;
                             t++;
                             new Thread(SendForATime).Start(nl[i]);
@@ -51,13 +52,20 @@ namespace LLHelper_AutoPlay
                         break;
                     }
                 }
-                if (nl[nl.Length - 1].notes_attribute == 0)
+                //对最后9个note进行判断,如果全部击键结束则退出
+                bool isBreak = true;
+                for(int i = 1; i <= 9; i++)
                 {
-                    break;
+                    if (nl[nl.Length - i].notes_attribute != 2)
+                    {
+                        isBreak = false;
+                    }
                 }
+                if (isBreak) break;
                 Thread.Sleep(1);
             }
-            Thread.Sleep((int)(nl[nl.Length - 1].effect_value * 1000) + 800);
+            //结尾延迟一定时间,保证模拟器足够反应
+            Thread.Sleep(1200);
             isRun = false;
             onOver?.Invoke();
         }
@@ -81,6 +89,8 @@ namespace LLHelper_AutoPlay
             {
                 KeyUp(pos);
             }
+            //note击键结束标志 = 2
+            nl.notes_attribute = 2;
         }
 
         private void KeyDown(byte pos)
@@ -123,6 +133,16 @@ namespace LLHelper_AutoPlay
             {
                 Console.WriteLine(ex.Message + "\n" + ex.StackTrace);
             }
+        }
+
+        public void TrimForwardSlow()
+        {
+            startTick -= setting.trimValue / 10;
+        }
+
+        public void TrimBackwardSlow()
+        {
+            startTick += setting.trimValue / 10;
         }
 
         private bool Load(int live_difficulty_id)

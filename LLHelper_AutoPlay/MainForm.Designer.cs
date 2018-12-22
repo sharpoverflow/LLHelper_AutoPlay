@@ -178,7 +178,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(143, 12);
             this.label1.TabIndex = 9;
-            this.label1.Text = "更新 : 2018-09-07 16:00";
+            this.label1.Text = "更新 : 2018-12-22 21:30";
             // 
             // openFileDialog
             // 
